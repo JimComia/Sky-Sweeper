@@ -95,5 +95,66 @@ class Ship:
     def get_height(self):
         return self.ship_img.get_height()
      
+class Enemy(Ship):
     
+    def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
+        self.ship_img = astteroid1
+        self.mask = pygame.mask.from_surface(self.ship_img)
+
+    def move(self, vel):
+        self.y += vel
+
+
+def collide(obj1, obj2):
+    offset_x = obj2.x - obj1.x
+    offset_y = obj2.y - obj1.y
+    return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+
+def main():
+    run = True
+    FPS = 60
+    level = 0
+
+    main_font = pygame.font.SysFont("comicsans", 50)
+    lost_font = pygame.font.SysFont("comicsans", 60)
+
+    enemies = []
+    wave_length = 5
+    enemy_vel = 1
+
+    player_vel = 5
+    bullts_vel = 5
+
+    player = Player(300, 630)
+
+    clock = pygame.time.Clock()
+
+    lost = False
+    lost_count = 0
+
+    def redraw_window():
+        WIN.blit(BG1, (0,0))
+        # draw text
+        #lives_label = main_font.render(f"Lives: {lives}", 1, (255,255,255))
+        level_label = main_font.render(f"Level: {level}", 1, (255,255,255))
+        score_label = main_font.render(f"Score: {player.score}", 1, (255,255,255))
+
+        WIN.blit(score_label, (10, 10))
+        WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+
+        for enemy in enemies:
+            enemy.draw(WIN)
+
+        player.draw(WIN)
+
+        if lost:
+            lost_label = lost_font.render("Game Over!!", 1, (255,255,255))
+            WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
+            fScore_label = lost_font.render(f"Score: {player.score}", 1, (255,255,255))
+            WIN.blit(fScore_label, (WIDTH/2 - fScore_label.get_width()/2, 450))
+            gmover.play()
+
+        pygame.display.update()
+
  
