@@ -12,3 +12,4 @@ pygame.display.set_caption("Sky Sweeper")
 
 astteroid1 = pygame.transform.scale(pygame.image.load(os.path.join("assets", "aster1.png")), (150,150))
 
+plane = pygame.transform.scale(pygame.image.load(os.path.join("assets", "plane1.png")), (100,100))
