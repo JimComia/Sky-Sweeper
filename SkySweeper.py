@@ -94,6 +94,40 @@ class Ship:
 
     def get_height(self):
         return self.ship_img.get_height()
+    
+class Player(Ship):
+    
+    def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
+        self.ship_img = plane
+        self.bullts_img = bullets
+        self.mask = pygame.mask.from_surface(self.ship_img)
+        self.max_health = health
+
+    def move_bulltss(self, vel, objs):
+        self.cooldown()
+        for bullts in self.bulltss:
+            bullts.move(vel)
+            if bullts.off_screen(HEIGHT):
+                self.bulltss.remove(bullts)
+            else:
+                for obj in objs:
+                    if bullts.collision(obj):
+                        ed.play()
+                        self.score += 100
+                        objs.remove(obj)
+                        
+                        if bullts in self.bulltss:
+                            self.bulltss.remove(bullts)
+
+    def draw(self, window):
+        super().draw(window)
+        self.healthbar(window)
+
+    def healthbar(self, window):
+        pygame.draw.rect(window, (255,0,0), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))
+        pygame.draw.rect(window, (0,255,0), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width() * (self.health/self.max_health), 10))    
+    
      
 class Enemy(Ship):
     
