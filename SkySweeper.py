@@ -172,8 +172,6 @@ def main():
 
     def redraw_window():
         WIN.blit(BG1, (0,0))
-        # draw text
-        #lives_label = main_font.render(f"Lives: {lives}", 1, (255,255,255))
         level_label = main_font.render(f"Level: {level}", 1, (255,255,255))
         score_label = main_font.render(f"Score: {player.score}", 1, (255,255,255))
 
@@ -218,7 +216,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
-        # for buttons
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] or keys[pygame.K_LEFT] and player.x - player_vel > 0:
             player.x -= player_vel
