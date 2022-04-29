@@ -50,7 +50,7 @@ class Bullts:
 
 
 class Ship:
-    COOLDOWN = 25
+    COOLDOWN = 15
     
 
     def __init__(self, x, y, health=100, score=0):
