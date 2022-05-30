@@ -9,7 +9,11 @@ WIDTH, HEIGHT = 780, 720
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Sky Sweeper")
 
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
 
+dim_screen = pygame.Surface(WIN.get_size()).convert_alpha()
+dim_screen.fill((0, 0, 0, 120))
 
 astteroid1 = pygame.transform.scale(pygame.image.load(os.path.join("assets", "aster1.png")), (150,150))
 
