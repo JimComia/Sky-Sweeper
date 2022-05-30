@@ -239,6 +239,14 @@ def main():
             player.y += player_vel
         if keys[pygame.K_SPACE]:
             player.shoot()
+        if keys[pygame.K_m]:
+            pygame.mixer.music.stop()
+        if keys[pygame.K_u]:
+            pygame.mixer.music.play(-1, 0.0)
+        if keys[pygame.K_p]:
+            paused = True
+        if keys[pygame.K_c]:
+            paused = False
 
         for enemy in enemies[:]:
             enemy.move(enemy_vel)
