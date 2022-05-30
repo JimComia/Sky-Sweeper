@@ -173,6 +173,7 @@ def main():
 
     lost = False
     lost_count = 0
+    paused = False
 
     def redraw_window():
         WIN.blit(BG1, (0,0))
@@ -193,7 +194,13 @@ def main():
             fScore_label = lost_font.render(f"Score: {player.score}", 1, (255,255,255))
             WIN.blit(fScore_label, (WIDTH/2 - fScore_label.get_width()/2, 450))
             gmover.play()
-
+        if paused:
+            psd_label = Pause_font.render("Pause", 1, (RED))
+            WIN.blit(psd_label, (WIDTH/2 - psd_label.get_width()/2, 150))
+            psd_label2 = lost_font.render("Click C to Continue", 1, (WHITE))
+            WIN.blit(psd_label2, (WIDTH/2 - psd_label2.get_width()/2, 350))
+            WIN.blit(dim_screen, (0, 0))
+   
         pygame.display.update()
 
     while run:
