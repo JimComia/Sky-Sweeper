@@ -206,39 +206,56 @@ def main():
     while run:
         clock.tick(FPS)
         redraw_window()
+        
+        if not paused:
+            if player.health <= 0:
+                lost = True
+                lost_count += 1
 
-        if player.health <= 0:
-            lost = True
-            lost_count += 1
+            if lost:
+                if lost_count > FPS * 3:
+                    run = False
+                else:
+                    continue
 
-        if lost:
-            if lost_count > FPS * 3:
-                run = False
-            else:
-                continue
+            if len(enemies) == 0:
+                level += 1
+                wave_length += 5
+                for i in range(wave_length):
+                    enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500, -100))
+                    enemies.append(enemy)
+            for enemy in enemies[:]:
+                enemy.move(enemy_vel)
 
-        if len(enemies) == 0:
-            level += 1
-            wave_length += 5
-            for i in range(wave_length):
-                enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500, -100))
-                enemies.append(enemy)
+                if collide(enemy, player):
+                    player.health -= 10
+                    ed.play()
+                    enemies.remove(enemy)
+                    player.score += 50
+                elif enemy.y + enemy.get_height() > HEIGHT:
+                    player.health -= 10
+                    ed.play()
+                    enemies.remove(enemy)
+
+            player.move_bulltss(-bullts_vel, enemies)
+  
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
         
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] or keys[pygame.K_LEFT] and player.x - player_vel > 0:
-            player.x -= player_vel
-        if keys[pygame.K_d] or keys[pygame.K_RIGHT] and player.x + player_vel + player.get_width() < WIDTH:
-            player.x += player_vel
-        if keys[pygame.K_w] or keys[pygame.K_UP] and player.y - player_vel > 0:
-            player.y -= player_vel
-        if keys[pygame.K_s] or keys[pygame.K_DOWN] and player.y + player_vel + player.get_height() + 15 < HEIGHT:
-            player.y += player_vel
-        if keys[pygame.K_SPACE]:
-            player.shoot()
+        if not paused:
+            if keys[pygame.K_a] or keys[pygame.K_LEFT] and player.x - player_vel > 0:
+                player.x -= player_vel
+            if keys[pygame.K_d] or keys[pygame.K_RIGHT] and player.x + player_vel + player.get_width() < WIDTH:
+                player.x += player_vel
+            if keys[pygame.K_w] or keys[pygame.K_UP] and player.y - player_vel > 0:
+                player.y -= player_vel
+            if keys[pygame.K_s] or keys[pygame.K_DOWN] and player.y + player_vel + player.get_height() + 15 < HEIGHT:
+                player.y += player_vel
+            if keys[pygame.K_SPACE]:
+                player.shoot()
         if keys[pygame.K_m]:
             pygame.mixer.music.stop()
         if keys[pygame.K_u]:
@@ -248,21 +265,7 @@ def main():
         if keys[pygame.K_c]:
             paused = False
 
-        for enemy in enemies[:]:
-            enemy.move(enemy_vel)
-
-            if collide(enemy, player):
-                player.health -= 10
-                ed.play()
-                enemies.remove(enemy)
-                player.score += 50
-            elif enemy.y + enemy.get_height() > HEIGHT:
-                player.health -= 10
-                ed.play()
-                enemies.remove(enemy)
-
-        player.move_bulltss(-bullts_vel, enemies)
-
+        
 
 def main_menu():
     title_font = pygame.font.SysFont("comicsans", 50)
