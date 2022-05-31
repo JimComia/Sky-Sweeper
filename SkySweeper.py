@@ -148,7 +148,16 @@ class Enemy(Ship):
 
     def move(self, vel):
         self.y += vel
+       
+class Lives(Ship):
+    
+    def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
+        self.ship_img = ph
+        self.mask = pygame.mask.from_surface(self.ship_img)
 
+    def move(self, vel):
+        self.y += vel
 
 def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
