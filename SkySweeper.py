@@ -236,11 +236,17 @@ def main():
                 level += 1
                 lives = 1
                 wave_length += 5
+                
                 for i in range(wave_length):
                     enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500, -100))
                     enemies.append(enemy)
-            for enemy in enemies[:]:
-                enemy.move(enemy_vel)
+                    
+                for i in range(lives):
+                    plives = Lives(random.randrange(50, WIDTH-100), random.randrange(-1500, -100))
+                    enemies.append(plives)
+                    
+                for enemy in enemies[:]:
+                    enemy.move(enemy_vel)
 
                 if collide(enemy, player):
                     player.health -= 10
