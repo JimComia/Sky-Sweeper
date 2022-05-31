@@ -175,6 +175,7 @@ def main():
 
     enemies = []
     wave_length = 5
+    lives = 0
     enemy_vel = 1
 
     player_vel = 5
@@ -233,6 +234,7 @@ def main():
 
             if len(enemies) == 0:
                 level += 1
+                lives = 1
                 wave_length += 5
                 for i in range(wave_length):
                     enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500, -100))
