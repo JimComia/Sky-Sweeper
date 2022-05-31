@@ -5,7 +5,7 @@ import time
 import random
 pygame.font.init()
 
-WIDTH, HEIGHT = 780, 720
+WIDTH, HEIGHT = 780, 700
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Sky Sweeper")
 
@@ -159,6 +159,7 @@ def main():
 
     main_font = pygame.font.SysFont("comicsans", 50)
     lost_font = pygame.font.SysFont("comicsans", 60)
+    Pause_font = pygame.font.SysFont("comicsans", 100)
 
     enemies = []
     wave_length = 5
