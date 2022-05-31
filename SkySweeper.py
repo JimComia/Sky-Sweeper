@@ -248,15 +248,15 @@ def main():
                 for enemy in enemies[:]:
                     enemy.move(enemy_vel)
 
-                if collide(enemy, player):
-                    player.health -= 10
-                    ed.play()
-                    enemies.remove(enemy)
-                    player.score += 50
-                elif enemy.y + enemy.get_height() > HEIGHT:
-                    player.health -= 10
-                    ed.play()
-                    enemies.remove(enemy)
+                    if collide(enemy, player):
+                        player.health -= 10
+                        ed.play()
+                        enemies.remove(enemy)
+                        player.score += 50
+                    elif enemy.y + enemy.get_height() > HEIGHT:
+                        player.health -= 10
+                        ed.play()
+                        enemies.remove(enemy)
 
             player.move_bulltss(-bullts_vel, enemies)
   
