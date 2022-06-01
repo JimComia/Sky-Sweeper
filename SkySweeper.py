@@ -253,6 +253,12 @@ def main():
                         ed.play()
                         enemies.remove(enemy)
                         player.score += 50
+                        
+                    if collide(plives, player):
+                        player.health = 100
+                        ed.stop()
+                        hl.play()
+                    
                     elif enemy.y + enemy.get_height() > HEIGHT:
                         player.health -= 10
                         ed.play()
